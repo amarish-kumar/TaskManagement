@@ -1,0 +1,24 @@
+1- How to Run Back End
+	1-Open Solution Using Visual Studio 2017
+	2-Open TaskManagement.Web Project then Open Web.config File and ensure that connection string is correct
+	3-Deploy Database using Package Manager Console and change Target Project  to TaskManagement.Infrastructure and run command Update-Database
+	4-Build TaskManagement.Web and Start it using IIS Express using port 53613 (or you can use any port but in this case you need to update frontend enviroment variable)
+2-How to Run Front End
+	1-make sure that you have installed Angular cli https://cli.angular.io/
+	2-open Visual Studio Code and open folder Tasks.WebApp
+	3-open terminal window inside vs code and run npm install
+	4-run ng serve --open
+
+Quick Deploy
+1- Create new IIS WebSite
+2- Copy Folder  "Deployment" content to you website folder
+3- make sure that IIS User has write access to App_Data\ files(*.mdf,*.ldf)
+4- open website
+
+
+Users:
+Admin/P@ssw0rd
+support1/P@ssw0rd
+support2/P@ssw0rd
+support3/P@ssw0rd
+	

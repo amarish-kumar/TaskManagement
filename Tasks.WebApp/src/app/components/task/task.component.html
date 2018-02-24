@@ -1,0 +1,40 @@
+<div style="text-align:right">
+    <h5>
+      Welcome  {{ currentUser?.UserName }}!
+      <a [routerLink]="['/login']">Logout</a>
+    </h5>
+  </div>
+
+  <div style="text-align:left">
+      <button *ngIf=" currentUser?.IsAdmin == false" [routerLink]="['/tasks/new']" class="btn btn-info">New Task</button>
+    </div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Task</th>
+      <th scope="col">AssignedTo</th>
+      <th scope="col">CreatedBy</th>
+      <th scope="col">Description</th>
+      <th scope="col">Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks;let i =index;">
+      <th scope="row">{{i+1}}</th>
+      <td>{{task.Title}}</td>
+      <td>{{task.AssignedToUserName}}</td>
+      <td>{{task.CreatedByUserName}}</td>
+      <td>{{task.Desc}}</td>
+      <td>{{task.Status}}</td>
+      <td>
+        <button *ngIf="task.Status !== 'Completed' && (task.CreatedBy == currentUser.UserId || task.AssignedTo == currentUser.UserId)" [routerLink]="['/tasks/edit', task.Id]" class="btn btn-info">Edit</button>
+        <button *ngIf="task.Status !== 'Completed' && task.AssignedTo == currentUser.UserId" (click)="OnClickComplete(task)" class="btn btn-success">Complete</button>
+        <button *ngIf="task.CreatedBy == currentUser.UserId || currentUser.IsAdmin " (click)="OnClickDelete(task.Id)" class="btn btn-danger" >Delete</button>
+      </td>
+    </tr>
+   
+  </tbody>
+</table>

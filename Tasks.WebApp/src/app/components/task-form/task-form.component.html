@@ -1,0 +1,41 @@
+<div class="col-md-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <strong>Task Form </strong>
+      </h3>
+    </div>
+    <div class="panel-body">
+
+      <form #taskform="ngForm" (ngSubmit)="submit(taskform.value, taskform.valid)">
+        <div class="form-group">
+          <label for="title"> Title</label>
+          <input type="text" maxlength="100" [readonly]="taskId !== undefined && currentUser?.UserId != data.CreatedBy" required class="form-control" name="Title" [(ngModel)]="data.Title" id="title" aria-describedby="titlehelp"
+            placeholder=" Task Title">
+        </div>
+        <div class="form-group">
+          <label for="AssignedTo">Assigned To</label>
+          <select [disabled]="data.Status == 'Completed' " class="form-control" id="AssignedTo"  name="AssignedTo" [(ngModel)]="data.AssignedTo" #AssignedTo="ngModel" required>
+            <option value="-1" selected="selected">Select User</option>
+            <option *ngFor="let user of users" [value]="user?.UserId">{{user.UserName}}</option>
+          </select>
+
+        </div>
+        <div class="form-group">
+          <label for="desc">Due Date</label>
+
+          <input [readonly]="taskId !== undefined && currentUser?.UserId != data.CreatedBy" [ngModel]="data.DueDate | date:'yyyy-MM-dd'" (ngModelChange)="data.DueDate = $event" type="date" name="duedate" />
+        </div>
+        <div class="form-group">
+          <label for="desc">Description</label>
+          <input type="text" maxlength="200" [readonly]="taskId !== undefined && currentUser?.UserId != data.CreatedBy" class="form-control" [(ngModel)]="data.Desc" name="Desc" id="desc" placeholder="Task Description">
+        </div>
+        <button type="submit" *ngIf = "taskId == undefined" class="btn btn-primary">Save</button>
+        <button type="button" *ngIf = "taskId !== undefined && currentUser?.UserId == data.CreatedBy" (click)="OnClickUpdate();" class="btn btn-primary">Update</button>
+        <button type="button" *ngIf="taskId !== undefined && data.Status != 'Completed' && allowAssign" (click)="OnClickAssign();" class="btn btn-primary">Assign</button>
+        <button type="button" [routerLink]="['/tasks']"  class="btn btn-secandary">Cancel</button>
+      </form>
+
+    </div>
+  </div>
+</div>
